@@ -1,0 +1,14 @@
+parserOptions:
+  sourceType: module
+extends:
+  - airbnb
+  - plugin:prettier/recommended
+root: true
+env:
+  node: true
+rules:
+  no-console: off
+  spaced-comment: off
+  import/no-dynamic-require: off
+  global-require: off
+  no-return-await: off

@@ -1,0 +1,26 @@
+{
+  "name": "ocms",
+  "version": "1.0.0",
+  "description": "OCMS Code samples",
+  "main": "0-admin-auth.js",
+  "scripts": {
+    "lint": "eslint *.js",
+    "lint:fix": "eslint *.js --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "base64url": "^3.0.1",
+    "enquirer": "^2.3.6",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1"
+  }
+}
