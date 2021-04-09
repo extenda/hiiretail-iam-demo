@@ -1,5 +1,11 @@
 ## OCMS Code samples
 
+### OpenAPI
+
+This service uses OpenAPI to document API. [The link](https://ocms.retailsvc.com/docs/)
+
+### Notice
+
 Some examples use JWT token, to perform authorization.
 
 They read token from `iam-token.jwt` file, make sure, that you have it.
