@@ -2,7 +2,7 @@
 
 ### OpenAPI
 
-This service uses OpenAPI to document API. [The link](https://ocms.retailsvc.com/docs/)
+This service uses OpenAPI to document API. [The link](https://ocms.retailsvc.com/swagger/)
 
 ### Notice
 
