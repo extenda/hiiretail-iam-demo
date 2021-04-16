@@ -56,7 +56,7 @@ async function section(name) {
 }
 
 async function output(name, x) {
-  console.log(`${name}:${x}`);
+  console.log(`${name}:`, x);
   return readLine('');
 }
 
