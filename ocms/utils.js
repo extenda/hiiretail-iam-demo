@@ -100,7 +100,9 @@ async function getAuthToken() {
 }
 
 async function deleteAuthToken() {
-  await rm(authTokenFile).catch();
+  try {
+    await rm(authTokenFile);
+  } catch (ignored) {}
 }
 
 module.exports = {
