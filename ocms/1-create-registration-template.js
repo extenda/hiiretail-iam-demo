@@ -19,7 +19,7 @@ module.exports.main = main(module, async (args) => {
     softwareId = await input('softwareId', 'sco'),
     softwareVersion = await input('softwareVersion', 'v1_demo'),
     tenantId = await input('tenantId', 'CIR7nQwtS0rA6t0S6ejd'),
-    usingGlobalTemplate = await confirm('usingGlobalTemplate'),
+    usingGlobalTemplate = await confirm('global'),
     role = (await input('role')) || null,
   } = args;
 
