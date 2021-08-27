@@ -1,4 +1,5 @@
 import express from "express";
+import "express-async-errors";
 import cors from "cors";
 
 import { App } from "./app";
@@ -15,11 +16,11 @@ seedDatabase(app.db);
 
 express()
   .use(cors())
-  .use(errorHandlerMiddleware)
   .use(getGroupsEndpoint(app))
   .use(getUsersInGroupEndpoint(app))
   .use(getUserByIdEndpoint(app))
   .use(findUserEndpoint(app))
+  .use(errorHandlerMiddleware)
   .listen(app.config.port, () => {
     console.log(`Server is running on port ${app.config.port}`);
   });
