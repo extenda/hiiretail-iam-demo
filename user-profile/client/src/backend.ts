@@ -2,7 +2,9 @@ import axios from 'axios';
 
 import type { User } from '../../server/src/types/user';
 
-const api = axios.create({ baseURL: 'http://localhost:3001' });
+const api = axios.create({
+  baseURL: 'http://localhost:3001',
+});
 
 export async function getUserById(userId: string): Promise<User> {
   const res = await api.get(`/users/${userId}`);
