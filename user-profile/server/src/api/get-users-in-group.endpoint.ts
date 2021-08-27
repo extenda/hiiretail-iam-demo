@@ -8,7 +8,9 @@ export function getUsersInGroupEndpoint(app: App): Router {
   return Router().get("/groups/:groupId/users", async (req, res) => {
     const groupId = req.params.groupId;
 
-    const nonPersonalUsersInfo = await app.db.users.findMany((user) => user.groupIds.has(groupId));
+    const nonPersonalUsersInfo = await app.db.users.findMany((user) =>
+      user.groupIds.includes(groupId)
+    );
 
     const personalUsersInfo = await bulkUserProfileSearch(
       app,

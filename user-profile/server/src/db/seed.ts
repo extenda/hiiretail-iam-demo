@@ -13,11 +13,11 @@ export async function seedDatabase(db: Database) {
   // John Doe
   db.users.save({
     id: "7b4870a5ea985d422b73e98b13468b5a1211fe282f6a86feb37c220007ce9000",
-    groupIds: new Set([group1.id, group2.id]),
+    groupIds: [group1.id, group2.id],
   });
   // Mary Jane
   db.users.save({
     id: "", // TODO: get Mary Jane id
-    groupIds: new Set([group2.id]),
+    groupIds: [group2.id],
   });
 }

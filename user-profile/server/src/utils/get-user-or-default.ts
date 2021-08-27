@@ -9,7 +9,7 @@ export async function getUserOrDefault(
     (await users.getById(userId)) ||
     (await users.save({
       id: userId,
-      groupIds: new Set([]),
+      groupIds: [],
     }))
   );
 }
