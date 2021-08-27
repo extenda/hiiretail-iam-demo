@@ -61,5 +61,9 @@ export async function bulkUserProfileSearch(app: App, userIds: string[]): Promis
     throw new Error("Unknown error");
   }
 
+  if (res.data.length !== userIds.length) {
+    throw new Error("Some users were not found");
+  }
+
   return res.data as UserProfile[];
 }

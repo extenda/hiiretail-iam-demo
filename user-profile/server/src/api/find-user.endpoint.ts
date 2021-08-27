@@ -14,6 +14,14 @@ export function findUserEndpoint(app: App): Router {
       email: email as string,
     });
 
+    if (!userProfile) {
+      return res.status(404).send({
+        statusCode: 404,
+        error: "Not Found",
+        message: "User not found",
+      });
+    }
+
     const nonPersonalUserInfo = await getUserOrDefault(app.db.users, userProfile.id);
 
     const user = mergeUserInfo(nonPersonalUserInfo, userProfile);
