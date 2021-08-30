@@ -1,9 +1,6 @@
 import { App } from "../app";
 import { BulkSearchDto } from "./ups-client";
 
-const TENANT_ID = "2p0U2ogYnEFJCyywcnI8"; // testrunner staging
-const SYSTEM_ID = "ups-demo";
-
 export type UserProfile = {
   id: string;
   sharedAttributes: {
@@ -12,7 +9,7 @@ export type UserProfile = {
 };
 
 export async function getUserProfile(app: App, userId: string): Promise<UserProfile | undefined> {
-  const res = await app.profilesApi.getUser(TENANT_ID, SYSTEM_ID, userId);
+  const res = await app.profilesApi.getUser(app.config.tenantId, app.config.systemId, userId);
 
   if (res.status === 404) {
     return undefined;
@@ -36,7 +33,7 @@ export async function findUserProfile(
     },
   });
 
-  const res = await app.profilesApi.findUser(TENANT_ID, SYSTEM_ID, filter);
+  const res = await app.profilesApi.findUser(app.config.tenantId, app.config.systemId, filter);
 
   if (res.status === 404) {
     return undefined;
@@ -55,7 +52,11 @@ export async function bulkUserProfileSearch(app: App, userIds: string[]): Promis
     select: ["sharedAttributes.displayName"],
   };
 
-  const res = await app.profilesBulkSearchApi.findUsers(TENANT_ID, SYSTEM_ID, query);
+  const res = await app.profilesBulkSearchApi.findUsers(
+    app.config.tenantId,
+    app.config.systemId,
+    query
+  );
 
   if (res.status !== 200) {
     throw new Error("Unknown error");
