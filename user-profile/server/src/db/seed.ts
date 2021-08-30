@@ -17,7 +17,7 @@ export async function seedDatabase(db: Database) {
   });
   // Mary Jane
   db.users.save({
-    id: "", // TODO: get Mary Jane id
+    id: "6a89e189a2bfd1929f3f38800ac51dd861167a3bd03f4c45da8e2909bdb457b9",
     groupIds: [group2.id],
   });
 }
