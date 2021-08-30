@@ -9,6 +9,8 @@ import { getGroupsEndpoint } from "./api/get-groups.endpoint";
 import { getUsersInGroupEndpoint } from "./api/get-users-in-group.endpoint";
 import { findUserEndpoint } from "./api/find-user.endpoint";
 import { errorHandlerMiddleware } from "./utils/error-handler.middleware";
+import { addUserToGroupEndpoint } from "./api/add-user-to-group.endpoint";
+import { deleteUserInGroupEndpoint } from "./api/delete-user-in-group.endpoint";
 
 const app = new App();
 
@@ -18,6 +20,8 @@ express()
   .use(cors())
   .use(getGroupsEndpoint(app))
   .use(getUsersInGroupEndpoint(app))
+  .use(addUserToGroupEndpoint(app))
+  .use(deleteUserInGroupEndpoint(app))
   .use(getUserByIdEndpoint(app))
   .use(findUserEndpoint(app))
   .use(errorHandlerMiddleware)
