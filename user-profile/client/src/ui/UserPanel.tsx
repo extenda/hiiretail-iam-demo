@@ -1,22 +1,31 @@
 import { useQuery } from 'react-query';
-import { Card } from '@hiiretail/synergy-ui';
+import { Box, Typography } from '@hiiretail/synergy-ui';
 
-import { getUserById } from '../backend';
+import { getUserById } from '../backend-api';
+import { Loading } from './Loading';
 
 export type UserPanelProps = {
   userId: string;
 };
 
+const userPanelStyle: React.CSSProperties = {
+  border: '1px solid black',
+};
+
 export const UserPanel: React.FC<UserPanelProps> = ({ userId }) => {
-  const { data: user } = useQuery('single user', () => getUserById(userId));
+  const { data: user } = useQuery(['user', userId], () => getUserById(userId));
 
   if (!user) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   return (
-    <Card leading="User" header={user.name}>
-      Groups: {JSON.stringify(user.groupIds, null, 4)}
-    </Card>
+    <Box p={4} m={1} style={userPanelStyle}>
+      <Typography>Id: {user.id.slice(0, 12)}...</Typography>
+      <br />
+      <Typography>Name: {user.name}</Typography>
+      <br />
+      <Typography>Groups: {user.groupIds.join(', ')}</Typography>
+    </Box>
   );
 };
