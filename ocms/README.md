@@ -1,10 +1,10 @@
-## OCMS Code samples
+# OCMS Code samples
 
-### OpenAPI
+## OpenAPI
 
 This service uses OpenAPI to document API. [The link](https://ocms.retailsvc.com/swagger/)
 
-### Notice
+## Notice
 
 Some examples use JWT token, to perform authorization.
 
@@ -13,9 +13,9 @@ Token can be fetched from `https://testrunner.hiiretail.com`.
 Also, it is required to have `iam.templates.create` and `iam.clients.update`
 permissions in your account.
 
-### Run
+## Run
 
-Every file represents step in a workflow, that we invision for this service.
+Every file represents step in a workflow, that we envision for this service.
 
 Make sure, to install required packages by running -
 ```sh
