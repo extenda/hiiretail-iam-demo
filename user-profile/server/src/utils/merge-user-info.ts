@@ -9,5 +9,9 @@ export function mergeUserInfo(
   return {
     ...nonPersonalUserInfo,
     name: userProfile.sharedAttributes.displayName,
+    emails: userProfile.sharedAttributes.emails?.map(({ type, value }) => ({
+      type: type ?? "default",
+      value,
+    })),
   };
 }

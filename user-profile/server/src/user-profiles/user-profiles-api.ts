@@ -5,6 +5,7 @@ export type UserProfile = {
   id: string;
   sharedAttributes: {
     displayName: string;
+    emails: { type?: string; value: string }[];
   };
 };
 
@@ -49,7 +50,7 @@ export async function findUserProfile(
 export async function bulkUserProfileSearch(app: App, userIds: string[]): Promise<UserProfile[]> {
   const query: BulkSearchDto = {
     ids: userIds,
-    select: ["sharedAttributes.displayName"],
+    select: ["sharedAttributes.displayName", "sharedAttributes.emails"],
   };
 
   const res = await app.profilesBulkSearchApi.findUsers(

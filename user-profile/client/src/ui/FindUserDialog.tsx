@@ -23,12 +23,14 @@ const modalStyle: React.CSSProperties = {
 export const FindUserDialog: React.FC<FindUserDialogProps> = ({ open, onOpenChange, onFind }) => {
   const [foundUserId, setFoundUserId] = useState<string | null>();
   const [userName, setUserName] = useState<string>();
+  const [userEmail, setUserEmail] = useState<string>();
   const [isOpen, setIsOpen] = useState(open);
 
   useEffect(() => {
     setIsOpen(open);
     setFoundUserId(undefined);
     setUserName(undefined);
+    setUserEmail(undefined);
   }, [open]);
 
   return (
@@ -49,9 +51,19 @@ export const FindUserDialog: React.FC<FindUserDialogProps> = ({ open, onOpenChan
             onChange={(event) => setUserName(event.target.value)}
           />
         </Box>
+        <Box p={2}>
+          <TextField
+            name="email"
+            label="Email"
+            hideLabel
+            prefix="Email"
+            value={userEmail}
+            onChange={(event) => setUserEmail(event.target.value)}
+          />
+        </Box>
         <Button
           onClick={async () => {
-            const user = await findUser(userName);
+            const user = await findUser(userName, userEmail);
 
             setFoundUserId(user?.id ?? null);
           }}>

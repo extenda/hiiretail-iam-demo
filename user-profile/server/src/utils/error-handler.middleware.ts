@@ -7,6 +7,8 @@ export const errorHandlerMiddleware: ErrorRequestHandler = (err, _req, res, next
 
   const status = err.status || 500;
 
+  console.error(err);
+
   return res.status(status).send({
     statusCode: status,
     error: "Internal Server Error",
