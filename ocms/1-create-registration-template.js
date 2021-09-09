@@ -25,7 +25,7 @@ module.exports.main = main(module, async (args) => {
 
   const requestTenantId = usingGlobalTemplate ? '_' : tenantId;
 
-  // *Requires `iam.templates.create` permission or `iam.template-admin` role*
+  // Requires `iam.templates.create` permission (exists in `iam.template-admin` role)
   const template = await axios({
     method: 'POST',
     url: `https://ocms.retailsvc.com/v1/tenants/${requestTenantId}/templates`,
