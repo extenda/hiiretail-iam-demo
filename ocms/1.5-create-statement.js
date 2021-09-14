@@ -24,6 +24,7 @@ module.exports.main = main(module, async (args) => {
     usingGlobalTemplate = await confirm('usingGlobalTemplate'),
   } = args;
 
+  // Requires `iam.statements.create` permission (exists in `iam.statements-admin` role)
   const statementRes = await axios({
     method: 'POST',
     url: `https://ocms.retailsvc.com/v1/tenants/${tenantId}/software-statements`,

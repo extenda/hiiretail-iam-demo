@@ -29,6 +29,8 @@ module.exports.main = main(module, async (args) => {
 
   try {
     // revoke client
+    // Requires `iam.clients.update` permission (exists in `iam.clients-admin` role)
+
     await axios({
       method: 'PUT',
       url: `https://ocms.retailsvc.com/v1/tenants/${tenantId}/clients/${clientId}/revoke`,
@@ -39,6 +41,8 @@ module.exports.main = main(module, async (args) => {
     console.log('Client revoked');
 
     // delete client
+    // Requires `iam.clients.delete` permission (exists in `iam.client-admin` role)
+
     await axios({
       method: 'DELETE',
       url: `https://ocms.retailsvc.com/v1/tenants/${tenantId}/clients/${clientId}`,

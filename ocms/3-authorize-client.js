@@ -28,6 +28,7 @@ module.exports.main = main(module, async (args) => {
     usingGlobalTemplate = await confirm('usingGlobalTemplate'),
   } = args;
 
+  // Requires `iam.client.update` permission (exists in `iam.client-admin` role)
   await axios({
     method: 'PUT',
     url: `https://ocms.retailsvc.com/v1/tenants/${tenantId}/clients/${clientId}/authorize`,
