@@ -1,25 +1,29 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { getTokenCache } from './getTokenCache';
 import { Button, Flexbox, TextField } from '@hiiretail/synergy-ui';
-import homeMessages from './Login.messages';
-import { useIntl } from 'react-intl';
+import { AuthContext } from '../App';
+import { BU_ID } from '../common/constants';
 
 interface LoginWithPinProps {
-  onMissedCache: () => void;
+  onMissedCache: (operatorId: string, pin: string) => void;
 }
 
 export const LoginWithPin: FC<LoginWithPinProps> = (props) => {
-  const intl = useIntl();
+  const { setTokenCache } = useContext(AuthContext);
+
+  const [error, setError] = useState('');
 
   const [operatorId, setOperatorId] = useState('');
   const [pin, setPin] = useState('');
 
   const submitHandler = async () => {
-    const res = await getTokenCache('1', operatorId, pin);
-    if (res === null) {
-      props.onMissedCache();
-    } else {
-      console.log(res);
+    setError('');
+    try {
+      const res = await getTokenCache(BU_ID, operatorId, pin);
+      res ? setTokenCache(res) : props.onMissedCache(operatorId, pin);
+    } catch (e: any) {
+      console.log(e);
+      setError(e.stack);
     }
   };
 
@@ -28,19 +32,12 @@ export const LoginWithPin: FC<LoginWithPinProps> = (props) => {
       <TextField
         name="operatorId"
         label="OperatorId"
-        onChange={(e) => {
-          setOperatorId(e.target.value);
-        }}
+        onChange={(e) => setOperatorId(e.target.value)}
       />
-      <TextField
-        name="pin"
-        label="Pin"
-        onChange={(e) => {
-          setPin(e.target.value);
-        }}
-      />
+      <TextField name="pin" label="Pin" onChange={(e) => setPin(e.target.value)} />
+      {error && <pre>{error}</pre>}
       <Button disabled={!(operatorId && pin)} onClick={submitHandler}>
-        {intl.formatMessage(homeMessages.login)}
+        Login
       </Button>
     </Flexbox>
   );

@@ -3,7 +3,6 @@ import { CommonProviders } from '@hiiretail/core';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import intlMessages from './i18n';
 import { createTheme } from '@hiiretail/synergy-ui';
 import { QueryClient } from 'react-query';
 import { getPermissions } from './common/utils/getPermissions';
@@ -27,7 +26,7 @@ const queryClient = new QueryClient({
 
 ReactDOM.render(
   <CommonProviders
-    intlMessages={intlMessages}
+    intlMessages={{}}
     locale="en"
     theme={theme}
     queryClient={queryClient}

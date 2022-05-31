@@ -1,31 +1,27 @@
-export type TokenCache = {
-  idToken: string;
-  offlineToken: string;
-};
+import { TokenCache } from './getTokenCache';
 
-export async function getTokenCache(
+export async function saveTokenCache(
   businessUnitId: string,
   operatorId: string,
   pin: string,
-): Promise<TokenCache | null> {
-  const body = new URLSearchParams({ operatorId, pin });
-
+  idToken: string,
+  refreshToken?: string,
+): Promise<TokenCache> {
   const res = await fetch(`/token-cache-api/v1/businessUnits/${businessUnitId}/oauth/token`, {
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
     },
-    method: 'POST',
-    body: body.toString(),
+    method: 'PUT',
+    body: JSON.stringify({
+      operatorId,
+      pin,
+      idToken,
+      refreshToken,
+    }),
   });
 
   if (res.status === 200) {
     return res.json();
-  }
-
-  // 401 - pin code is invalid, or no cache ws found
-
-  if (res.status === 401) {
-    return null;
   }
 
   // Usually in production you would need to

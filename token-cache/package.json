@@ -88,7 +88,8 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.4",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "http-proxy-middleware": "2.0.6"
   },
   "husky": {
     "hooks": {

@@ -1,13 +1,34 @@
 import { FC, useState } from 'react';
+import { LoginWithFirebase } from './LoginWithFirebase';
 import { LoginWithPin } from './LoginWithPin';
 
-export const Login: FC = (props, context) => {
-  const [state, setState] = useState<'pinLogin' | 'fullLogin'>('pinLogin');
+export type LoginStateMachine =
+  | { state: 'pinLogin'; operatorId: undefined; pin: undefined }
+  | { state: 'fullLogin'; operatorId: string; pin: string };
 
-  switch (state) {
+const defaultState: LoginStateMachine = {
+  state: 'pinLogin',
+  operatorId: undefined,
+  pin: undefined,
+};
+
+const useLoginState = () => {
+  const [step, setState] = useState<LoginStateMachine>(defaultState);
+
+  return { step, setStep: setState };
+};
+
+export const Login: FC = () => {
+  const { step, setStep } = useLoginState();
+
+  switch (step.state) {
     case 'pinLogin':
-      return <LoginWithPin onMissedCache={() => setState('fullLogin')} />;
+      return (
+        <LoginWithPin
+          onMissedCache={(operatorId, pin) => setStep({ state: 'fullLogin', operatorId, pin })}
+        />
+      );
     case 'fullLogin':
-      return <div>adfghjk</div>;
+      return <LoginWithFirebase operatorId={step.operatorId} pin={step.pin} />;
   }
 };
