@@ -1,15 +1,17 @@
-import { FC, useContext, useState } from 'react';
-import { getTokenCache } from './getTokenCache';
-import { Button, Flexbox, TextField } from '@hiiretail/synergy-ui';
-import { AuthContext } from '../App';
-import { BU_ID } from '../common/constants';
+import {FC, useContext, useState} from 'react';
+import {getTokenCache} from './getTokenCache';
+import {Button, Flexbox, TextField} from '@hiiretail/synergy-ui';
+import {AuthContext} from '../App';
+import {BU_ID} from '../common/constants';
+import {Redirect} from "react-router-dom";
 
 interface LoginWithPinProps {
   onMissedCache: (operatorId: string, pin: string) => void;
 }
 
 export const LoginWithPin: FC<LoginWithPinProps> = (props) => {
-  const { setTokenCache } = useContext(AuthContext);
+  const [redirect, setRedirect] = useState(false)
+  const {setTokenCache} = useContext(AuthContext);
 
   const [error, setError] = useState('');
 
@@ -20,12 +22,21 @@ export const LoginWithPin: FC<LoginWithPinProps> = (props) => {
     setError('');
     try {
       const res = await getTokenCache(BU_ID, operatorId, pin);
-      res ? setTokenCache(res) : props.onMissedCache(operatorId, pin);
+      if (res) {
+        setTokenCache(res)
+        setRedirect(true)
+      } else {
+        props.onMissedCache(operatorId, pin);
+      }
     } catch (e: any) {
       console.log(e);
       setError(e.stack);
     }
   };
+
+  if (redirect) {
+    return <Redirect to={'/'}/>
+  }
 
   return (
     <Flexbox container direction="column" gutter={4}>
@@ -34,7 +45,7 @@ export const LoginWithPin: FC<LoginWithPinProps> = (props) => {
         label="OperatorId"
         onChange={(e) => setOperatorId(e.target.value)}
       />
-      <TextField name="pin" label="Pin" onChange={(e) => setPin(e.target.value)} />
+      <TextField name="pin" label="Pin" onChange={(e) => setPin(e.target.value)}/>
       {error && <pre>{error}</pre>}
       <Button disabled={!(operatorId && pin)} onClick={submitHandler}>
         Login
