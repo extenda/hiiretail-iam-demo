@@ -1,9 +1,10 @@
-import { FC, useContext, useState } from 'react';
-import { Button, Flexbox, TextField, Typography } from '@hiiretail/synergy-ui';
-import { fbApp } from '../common/fb-app';
-import { saveTokenCache } from './saveTokenCache';
-import { BU_ID } from '../common/constants';
-import { AuthContext } from '../App';
+import {FC, useContext, useState} from 'react';
+import {Button, Flexbox, TextField, Typography} from '@hiiretail/synergy-ui';
+import {fbApp} from '../common/fb-app';
+import {saveTokenCache} from './saveTokenCache';
+import {BU_ID} from '../common/constants';
+import {AuthContext} from '../App';
+import {Redirect} from "react-router-dom";
 
 export interface LoginWithFirebaseProps {
   operatorId: string;
@@ -11,8 +12,9 @@ export interface LoginWithFirebaseProps {
 }
 
 export const LoginWithFirebase: FC<LoginWithFirebaseProps> = (props) => {
-  const { setTokenCache } = useContext(AuthContext);
+  const {setTokenCache} = useContext(AuthContext);
 
+  const [redirect, setRedirect] = useState(false)
   const [error, setError] = useState('');
 
   const [email, setEmail] = useState('token-cache-demo@demo.dev');
@@ -36,10 +38,15 @@ export const LoginWithFirebase: FC<LoginWithFirebaseProps> = (props) => {
       );
 
       setTokenCache(tokenCache);
+      setRedirect(true)
     } catch (e: any) {
       setError(e.stack);
     }
   };
+
+  if (redirect) {
+    return <Redirect to={'/'}/>
+  }
 
   return (
     <Flexbox container direction="column" gutter={4}>
@@ -47,7 +54,7 @@ export const LoginWithFirebase: FC<LoginWithFirebaseProps> = (props) => {
         We haven't been able to get token from Token cache, Force user to login with full
         credentials
       </Typography>
-      <br />
+      <br/>
       <Typography as="h1">
         Form defaults to valid user credentials in testrunner tenant, special for testing
       </Typography>
