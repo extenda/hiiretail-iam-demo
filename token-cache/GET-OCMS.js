@@ -1,5 +1,6 @@
 const axios = require('axios');
 const qs = require('qs');
+const fs = require('fs')
 const data = qs.stringify({
   'grant_type': 'client_credentials',
   'audience': 'https://hiiretail.com'
@@ -24,6 +25,7 @@ const config = {
 axios(config)
   .then(function (response) {
     console.log(response.data);
+    fs.writeFileSync('token.txt', response.data.access_token)
   })
   .catch(function (error) {
     console.log(error);

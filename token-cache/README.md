@@ -28,15 +28,6 @@ To run this demo, you need to:
 1. `yarn install`  - keep in mind that you have to be authenticated into Nexus npm repo
 2. Get a new OCMS token to be able to talk to token cache API
 
-cliendId
-- `aWQ6IHRva2VuLWNhY2hlLWRlbW8Kc2Z3OiB0ZXN0QDEuMEBDSVI3blF3dFMwckE2dDBTNmVqZAp0aWQ6IENJUjduUXd0UzByQTZ0MFM2ZWpkCg`
+run [Helper script](./GET-OCMS.js), it should set ocms token to token.txt
 
-clientSecret - `cf8d42ad035d4a6391593d5174ce978ad5cce4ae0717d39fef3f41fb068c3eeb`
-
-[Instructions, how to fetch a OCMS Token](https://developer.hiiretail.com/docs/ocms/public/concepts/oauth2-authentication)
-
-[Helper script to fetch a token](./GET-OCMS.js)
-
-3. Set the token to src/setupProxy.js file to `Authorization` header.
-
-4. `yarn start`
+3. `yarn start`

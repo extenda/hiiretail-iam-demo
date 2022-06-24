@@ -11,6 +11,7 @@ storybook-static/
 # testing
 /coverage
 test-results/
+token.txt
 
 # production
 /dist
