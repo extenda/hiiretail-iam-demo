@@ -1,6 +1,7 @@
 export type TokenCache = {
   idToken: string;
   offlineToken: string;
+  refreshToken: string;
 };
 
 export async function getTokenCache(
@@ -8,7 +9,7 @@ export async function getTokenCache(
   operatorId: string,
   pin: string,
 ): Promise<TokenCache | null> {
-  const body = new URLSearchParams({ operatorId, pin });
+  const body = new URLSearchParams({operatorId, pin});
 
   const res = await fetch(`/token-cache-api/v1/businessUnits/${businessUnitId}/oauth/token`, {
     headers: {

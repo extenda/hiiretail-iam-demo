@@ -25,16 +25,20 @@ export const LoginWithFirebase: FC<LoginWithFirebaseProps> = (props) => {
     try {
       fbApp.auth().tenantId = 'testrunner-2mfuk'; // hardcoded testrunner prod tenant
       const result = await fbApp.auth().signInWithEmailAndPassword(email, password);
-      const tokenResult = await result.user?.getIdTokenResult();
-      if (!tokenResult) {
+      const user = result.user
+      if (!user) {
         throw new Error('could not get id token for fb user :(');
       }
+      const tokenResult = await user.getIdTokenResult();
+      const refreshToken = user.refreshToken
+
 
       const tokenCache = await saveTokenCache(
         BU_ID,
         props.operatorId,
         props.pin,
         tokenResult.token,
+        refreshToken
       );
 
       setTokenCache(tokenCache);
