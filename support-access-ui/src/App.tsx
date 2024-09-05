@@ -226,13 +226,20 @@ function SupportCaseList({
                 <p class="card-text">{supportCase.description}</p>
                 <Switch>
                   <Match when={!admin}>
-                    <button
-                      class="btn-secondary"
-                      disabled={supportCase.status !== "Accepted"}
-                      onClick={() => onCredentialsClick?.(supportCase)}
+                    <label
+                      for="credentialsModal"
+                      class={
+                        supportCase.status === "Accepted"
+                          ? "paper-btn btn-secondary"
+                          : "paper-btn btn-secondary disabled"
+                      }
+                      onClick={() => {
+                        if (supportCase.status !== "Accepted") return;
+                        onCredentialsClick?.(supportCase);
+                      }}
                     >
                       Get Credentials
-                    </button>
+                    </label>
                   </Match>
                   <Match when={admin}>
                     <button
@@ -348,26 +355,28 @@ function CredentialsModal(props: {
   api: SupportCaseAPI;
   username: Accessor<string>;
   password: Accessor<string>;
-  open: Accessor<boolean>;
-  setOpen: (open: boolean) => void;
 }) {
   return (
     <>
-      <input
-        class="modal-state"
-        id="credentialsModal"
-        type="checkbox"
-        checked={props.open()}
-      />
+      <input class="modal-state" id="credentialsModal" type="checkbox" />
       <div class="modal">
         <label class="modal-bg" for="credentialsModal"></label>
         <div class="modal-body border">
           <h4 class="modal-title">Credentials &nbsp;&nbsp;&nbsp;&nbsp;</h4>
-          <label class="btn-close" onClick={() => props.setOpen(false)}>
+          <label class="btn-close" for="credentialsModal">
             X
           </label>
-          <p class="modal-text">username: {props.username()}</p>
-          <p class="modal-text">password: {props.password()}</p>
+          <button
+            onClick={() => navigator.clipboard.writeText(props.username())}
+          >
+            Copy username
+          </button>
+          <button
+            class="margin-left"
+            onClick={() => navigator.clipboard.writeText(props.password())}
+          >
+            Copy password
+          </button>
         </div>
       </div>
     </>
