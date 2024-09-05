@@ -87,8 +87,7 @@ function RequesterPage() {
           >
             Login
           </button>
-          <br />
-          <label class="paper-btn" for="createSupportAccessModal">
+          <label class="paper-btn margin-left" for="createSupportAccessModal">
             Create Support Case
           </label>
           <SupportCaseList
@@ -217,6 +216,13 @@ function SupportCaseList({
                 <h5 class="card-subtitle">
                   {supportCase.createdAt.split("T")[0]}
                 </h5>
+                <Switch>
+                  <Match when={!admin}>
+                    <p class="card-text bold">
+                      Tenant ID: {supportCase.tenantId}
+                    </p>
+                  </Match>
+                </Switch>
                 <p class="card-text">{supportCase.description}</p>
                 <Switch>
                   <Match when={!admin}>
