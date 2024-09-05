@@ -9,15 +9,20 @@ import {
   Switch,
 } from "solid-js";
 import { SupportCase, SupportCaseAPI } from "./api";
-import { Route, Router } from "@solidjs/router";
 
 export function App() {
   return (
-    <Router>
-      <Route path="/" component={IndexPage} />
-      <Route path="/requester" component={RequesterPage} />
-      <Route path="/reviewer" component={ReviewerPage} />
-    </Router>
+    <Switch>
+      <Match when={location.href.endsWith("?requester")}>
+        <RequesterPage />
+      </Match>
+      <Match when={location.href.endsWith("?reviewer")}>
+        <ReviewerPage />
+      </Match>
+      <Match when={true}>
+        <IndexPage />
+      </Match>
+    </Switch>
   );
 }
 
@@ -26,10 +31,10 @@ function IndexPage() {
     <>
       <ul>
         <li>
-          <a href="/requester">Requester</a>
+          <a href="/?requester">Requester</a>
         </li>
         <li>
-          <a href="/reviewer">Reviewer</a>
+          <a href="/?reviewer">Reviewer</a>
         </li>
       </ul>
     </>
